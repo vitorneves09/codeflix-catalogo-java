@@ -1,0 +1,23 @@
+package br.com.neves.codeflix.domain.validation;
+
+import java.util.List;
+
+public interface ValidationHandler {
+
+    ValidationHandler append(Error anError);
+    ValidationHandler append(ValidationHandler anHandle);
+    ValidationHandler validate(ValidationHandler aValidation);
+
+    List<Error> getErrors();
+
+    default boolean hasError(){
+     return getErrors() !=  null && !getErrors().isEmpty();
+    }
+
+    public interface validation{
+        void validate();
+    }
+
+
+
+}
