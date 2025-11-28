@@ -26,8 +26,8 @@ public class CategoryTest {
     }
 
     @Test
-    public void givenAnInvalidNullName_whenNewCategoryAndValidate_thenShouldThrowException() {
-        final String expectName = null;
+    public void givenAnInvalidNullNameEmpty_whenNewCategoryAndValidate_thenShouldThrowException() {
+        final String expectName = "";
         final var expectErrorCount = 1;
         final var expectDescription = "A categoria mais assistida";
         final var expectErrorMessage = "'name' should not be null";
@@ -39,7 +39,25 @@ public class CategoryTest {
                 Assertions.assertThrows(DomainException.class, () -> actulaCategory.validate( new ThrowsValidationHandler()));
 
         Assertions.assertEquals(expectErrorCount, actualException.getErrors().size());
-        Assertions.assertEquals(expectErrorMessage, actualException.getErrors().get(0));
-
+        Assertions.assertEquals(expectErrorMessage, actualException.getErrors().get(0).message());
     }
+
+    @Test
+    public void givenAnInvalidNullNameLengthLessThan3_whenNewCategoryAndValidate_thenShouldThrowException() {
+        final String expectName = "1";
+        final var expectErrorCount = 1;
+        final var expectDescription = "A categoria mais assistida";
+        final var expectErrorMessage = "'name' must be between 3 and 255 characters";
+        final boolean expectIsActive = true;
+
+        final var actulaCategory = Category.newCategory(expectName, expectDescription, expectIsActive);
+
+        final var actualException =
+                Assertions.assertThrows(DomainException.class, () -> actulaCategory.validate( new ThrowsValidationHandler()));
+
+        Assertions.assertEquals(expectErrorCount, actualException.getErrors().size());
+        Assertions.assertEquals(expectErrorMessage, actualException.getErrors().get(0).message());
+    }
+
+
 }

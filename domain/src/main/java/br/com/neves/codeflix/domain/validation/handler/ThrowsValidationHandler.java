@@ -1,20 +1,20 @@
 package br.com.neves.codeflix.domain.validation.handler;
 
 import br.com.neves.codeflix.domain.exceptions.DomainException;
-import br.com.neves.codeflix.domain.validation.ValidationHandler;
 import br.com.neves.codeflix.domain.validation.Error;
+import br.com.neves.codeflix.domain.validation.ValidationHandler;
 
 import java.util.List;
 
 public class ThrowsValidationHandler implements ValidationHandler {
     @Override
-    public ValidationHandler append(Error anError) {
-        throw new DomainException(List.of(anError));
+    public ValidationHandler append(final Error anError) {
+        throw  DomainException.with(anError);
     }
 
     @Override
-    public ValidationHandler append(ValidationHandler anHandle) {
-        throw new DomainException(anHandle.getErrors());
+    public ValidationHandler append(final ValidationHandler anHandle) {
+        throw  DomainException.with(anHandle.getErrors());
     }
 
     @Override
@@ -22,7 +22,7 @@ public class ThrowsValidationHandler implements ValidationHandler {
         try{
             aValidation.validate(aValidation);
         }catch (final Exception exception){
-            throw DomainException.with(List.of(new Error(exception.getMessage())));
+            throw DomainException.with(new Error(exception.getMessage()));
         }
 
         return  this;
