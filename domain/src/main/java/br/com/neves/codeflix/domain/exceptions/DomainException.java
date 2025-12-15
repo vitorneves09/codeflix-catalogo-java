@@ -4,7 +4,7 @@ import java.util.List;
 import br.com.neves.codeflix.domain.validation.Error;
 
 
-public class DomainException  extends  NoStackTraceException{
+public class DomainException extends NoStackTraceException{
 
    private final List<Error> errors;
 
