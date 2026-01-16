@@ -7,6 +7,6 @@ import br.com.neves.codeflix.application.UserCase;
 public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
-        System.out.println(new UserCase().execute());
+//        System.out.println(new UserCase().execute());
     }
 }
